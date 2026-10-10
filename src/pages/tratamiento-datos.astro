@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+---
+<BaseLayout title="Tratamiento de datos personales" description="Borrador informativo sobre el tratamiento de datos personales en ALZORA.">
+  <section class="section-pad bg-surface"><div class="container-page max-w-4xl"><p class="eyebrow">Documento legal</p><h1 class="heading-xl mt-4">Tratamiento de datos personales</h1><p class="lead mt-5">Borrador de cláusula de consentimiento pendiente de revisión legal.</p></div></section>
+  <section class="section-pad"><article class="container-page prose-legal max-w-4xl"><div class="rounded-xl border border-amber-300 bg-amber-50 p-5 text-amber-950"><strong>Pendiente antes de publicar:</strong> completar la identificación del titular del banco de datos, domicilio, plazo de conservación, registro del banco y cualquier transferencia aplicable.</div>
+    <h2>Autorización propuesta</h2><p>Al marcar la casilla del formulario, autorizas de manera libre, previa, expresa, informada e inequívoca a ALZORA [datos registrales pendientes] a tratar los datos proporcionados con la finalidad de atender tu solicitud, contactarte y evaluar una eventual relación comercial.</p>
+    <h2>Datos y destinatarios</h2><p>El tratamiento puede comprender datos de identificación y contacto, información de la empresa y el contenido del mensaje. Podrán intervenir proveedores de infraestructura, seguridad y correo bajo condiciones contractuales que deberán verificarse.</p>
+    <h2>Carácter facultativo</h2><p>Proporcionar los datos es facultativo. Los campos señalados como obligatorios son necesarios para gestionar la solicitud. No proporcionar dichos campos impedirá el envío del formulario.</p>
+    <h2>Ejercicio de derechos</h2><p>Podrás revocar el consentimiento y ejercer los derechos que reconozca la normativa aplicable mediante una solicitud a <a class="text-brand underline" href={`mailto:${site.email}`}>{site.email}</a>. El proceso definitivo deberá documentarse en la versión revisada.</p>
+    <h2>Plazo</h2><p>El plazo exacto de conservación está pendiente de definición y revisión legal. No deberán conservarse datos por más tiempo del necesario para las finalidades informadas y obligaciones aplicables.</p>
+  </article></section>
+</BaseLayout>

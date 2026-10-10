@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Icon from '../components/Icon.astro';
+import CTA from '../components/CTA.astro';
+import { services } from '../data/services';
+
+const problems = [
+  ['workflow', 'Procesos manuales', 'Tareas repetitivas y controles dispersos que consumen tiempo del equipo.'],
+  ['integration', 'Sistemas desconectados', 'Información que no fluye y obliga a copiar datos entre herramientas.'],
+  ['files', 'Poca trazabilidad', 'Casos, documentos y solicitudes cuyo estado no es visible a tiempo.'],
+  ['headset', 'Soporte reactivo', 'Incidentes y pedidos sin una priorización ni seguimiento consistente.'],
+] as const;
+const benefits = [
+  ['gauge', 'Operaciones más ágiles', 'Menos fricción para responder, coordinar y avanzar.'],
+  ['eye', 'Visibilidad para decidir', 'Información ordenada y seguimiento de lo que ocurre.'],
+  ['shield', 'Procesos consistentes', 'Reglas claras, documentación y controles adecuados.'],
+  ['users', 'Equipos mejor acompañados', 'Soluciones pensadas para el trabajo diario y su adopción.'],
+] as const;
+const steps = ['Diagnóstico', 'Análisis AS-IS', 'Diseño TO-BE', 'Implementación', 'Mejora continua'];
+const cases = [
+  { title: 'Seguimiento de solicitudes comerciales', text: 'Ejemplo: centralizar oportunidades, responsables, próximos pasos y alertas para evitar seguimientos tardíos.' },
+  { title: 'Gestión documental con alertas', text: 'Ejemplo: registrar documentos, controlar estados y avisar vencimientos o tareas pendientes.' },
+  { title: 'Asistente interno de conocimiento', text: 'Ejemplo: facilitar consultas sobre procedimientos autorizados, con fuentes visibles y supervisión humana.' },
+];
+const faqs = [
+  ['¿Con qué tipo de empresas trabaja ALZORA?', 'Trabajamos con empresas que desean ordenar, automatizar o conectar procesos operativos y administrativos. El diagnóstico permite confirmar si el reto encaja con nuestras capacidades.'],
+  ['¿Es necesario reemplazar los sistemas actuales?', 'No. Primero evaluamos los procesos y herramientas existentes. Muchas mejoras pueden lograrse integrando, configurando o complementando lo que ya funciona.'],
+  ['¿Cómo comienza un proyecto?', 'Con una conversación de diagnóstico para entender el problema, los actores, las restricciones y el resultado esperado. Luego proponemos el alcance y la modalidad adecuada.'],
+  ['¿Ofrecen soluciones con inteligencia artificial?', 'Sí, cuando existe un caso de uso viable. Evaluamos datos, privacidad, riesgos y necesidad de supervisión antes de recomendar una implementación.'],
+];
+---
+<BaseLayout>
+  <section class="relative overflow-hidden bg-[linear-gradient(135deg,#f8fbff_0%,#eef6ff_55%,#f2fbfa_100%)] py-20 sm:py-28">
+    <div class="absolute -right-24 -top-24 size-96 rounded-full bg-brand/10 blur-3xl" aria-hidden="true"></div>
+    <div class="container-page relative grid items-center gap-14 lg:grid-cols-[1.15fr_.85fr]">
+      <div>
+        <p class="eyebrow">Automatización · Tecnología · IA</p>
+        <h1 class="heading-xl mt-5 max-w-4xl">Transformamos procesos complejos en operaciones más simples.</h1>
+        <p class="lead mt-7 max-w-2xl">En ALZORA ayudamos a las empresas a optimizar su operación mediante automatización, soluciones tecnológicas y acompañamiento especializado.</p>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row"><a href="/contacto" class="btn btn-primary">Solicitar diagnóstico <Icon name="arrow" size={19} /></a><a href="/servicios" class="btn btn-secondary">Conocer servicios</a></div>
+        <p class="mt-7 flex items-center gap-2 text-sm font-semibold text-slate-600"><Icon name="check" size={18} class="text-accent" /> Enfoque consultivo para empresas en Perú</p>
+      </div>
+      <div class="relative mx-auto w-full max-w-lg" aria-hidden="true">
+        <div class="rounded-[2rem] border border-white bg-white/80 p-5 shadow-soft backdrop-blur">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4"><div><p class="text-xs font-bold uppercase tracking-wider text-slate-400">Proceso operativo</p><p class="mt-1 font-bold text-brand-dark">De fragmentado a conectado</p></div><span class="size-3 rounded-full bg-accent"></span></div>
+          <div class="mt-5 space-y-3">
+            {['Captura de información', 'Validación automática', 'Asignación y seguimiento', 'Visibilidad y mejora'].map((item, i) => <div class="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-4"><span class="grid size-9 shrink-0 place-items-center rounded-lg bg-blue-50 font-extrabold text-brand">{i + 1}</span><span class="font-semibold text-brand-dark">{item}</span>{i < 3 && <Icon name="arrow" size={17} class="ml-auto text-accent" />}</div>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="container-page"><SectionHeading eyebrow="El reto" title="Problemas empresariales que ayudamos a resolver" description="Partimos del proceso real para identificar dónde se pierde tiempo, información o capacidad de respuesta." />
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{problems.map(([icon,title,text]) => <article class="rounded-2xl border border-slate-200 p-6"><Icon name={icon} class="text-brand" /><h3 class="heading-md mt-5">{title}</h3><p class="muted mt-3 text-sm">{text}</p></article>)}</div>
+    </div>
+  </section>
+
+  <section class="section-pad bg-surface">
+    <div class="container-page"><SectionHeading eyebrow="Servicios" title="Capacidades para mejorar tu operación" description="Combinamos análisis de procesos, tecnología y acompañamiento para construir mejoras viables y sostenibles." />
+      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">{services.map((service) => <ServiceCard service={service} />)}</div>
+      <a href="/servicios" class="btn btn-secondary mt-8">Ver todos los servicios <Icon name="arrow" size={18} /></a>
+    </div>
+  </section>
+
+  <section class="section-pad"><div class="container-page grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-start"><SectionHeading eyebrow="Beneficios" title="Mejoras que se sienten en el trabajo diario" description="No se trata solo de implementar tecnología, sino de facilitar que la operación funcione con mayor claridad." /><div class="grid gap-5 sm:grid-cols-2">{benefits.map(([icon,title,text]) => <article class="card p-6"><div class="grid size-11 place-items-center rounded-xl bg-teal-50 text-accent"><Icon name={icon} /></div><h3 class="heading-md mt-5">{title}</h3><p class="muted mt-2 text-sm">{text}</p></article>)}</div></div></section>
+
+  <section class="section-pad bg-brand-dark text-white"><div class="container-page"><SectionHeading eyebrow="Cómo trabajamos" title="Un camino claro desde el problema hasta la mejora" description="Avanzamos por etapas, alineando decisiones de negocio y tecnología." /><ol class="mt-12 grid gap-4 md:grid-cols-5">{steps.map((step,i) => <li class="relative rounded-xl border border-white/15 bg-white/5 p-5"><span class="text-sm font-extrabold text-blue-300">0{i+1}</span><p class="mt-8 font-bold">{step}</p></li>)}</ol><a href="/como-trabajamos" class="btn mt-8 bg-white text-brand-dark">Ver metodología <Icon name="arrow" size={18} /></a></div></section>
+
+  <section class="section-pad"><div class="container-page"><SectionHeading eyebrow="Casos de uso ilustrativos" title="Así podría verse una solución aplicada" description="Los siguientes son ejemplos conceptuales; no representan clientes ni implementaciones reales de ALZORA." /><div class="mt-12 grid gap-6 md:grid-cols-3">{cases.map((item,i) => <article class="card p-7"><p class="text-sm font-bold text-accent">EJEMPLO {String(i+1).padStart(2,'0')}</p><h3 class="heading-md mt-4">{item.title}</h3><p class="muted mt-3">{item.text}</p></article>)}</div></div></section>
+
+  <section class="section-pad bg-surface"><div class="container-page grid gap-10 lg:grid-cols-[.75fr_1.25fr]"><SectionHeading eyebrow="Preguntas frecuentes" title="Antes de comenzar" description="Respuestas breves para orientar una primera conversación." /><div class="space-y-3">{faqs.map(([question,answer]) => <details class="group rounded-xl border border-slate-200 bg-white p-5"><summary class="cursor-pointer list-none pr-6 font-bold text-brand-dark marker:hidden">{question}<span class="float-right text-brand group-open:rotate-45">+</span></summary><p class="muted mt-3 pr-5">{answer}</p></details>)}</div></div></section>
+  <CTA />
+</BaseLayout>

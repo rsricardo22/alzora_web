@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import CTA from '../../components/CTA.astro';
+import { services, type Service } from '../../data/services';
+export function getStaticPaths() { return services.map((service) => ({ params: { slug: service.slug }, props: { service } })); }
+interface Props { service: Service; }
+const { service } = Astro.props;
+const sections = [
+  { title: 'Empresas a las que está dirigido', items: service.audience },
+  { title: 'Señales de que podrías necesitarlo', items: service.signals },
+  { title: 'Qué hacemos', items: service.actions },
+  { title: 'Beneficios esperados', items: service.benefits },
+  { title: 'Entregables posibles', items: service.deliverables },
+  { title: 'Modalidad de contratación', items: service.modalities },
+];
+---
+<BaseLayout title={service.title} description={service.summary}>
+  <section class="section-pad bg-surface"><div class="container-page grid gap-10 lg:grid-cols-[1fr_.45fr] lg:items-center"><div><a href="/servicios" class="text-sm font-bold text-brand">← Volver a servicios</a><p class="eyebrow mt-8">Servicio</p><h1 class="heading-xl mt-4">{service.title}</h1><p class="lead mt-6 max-w-3xl">{service.summary}</p><a href="/contacto" class="btn btn-primary mt-8">Solicitar diagnóstico <Icon name="arrow" size={18}/></a></div><div class="grid aspect-square max-w-sm place-items-center rounded-[2.5rem] bg-[linear-gradient(145deg,#1673d1,#102a43)] text-white shadow-soft"><Icon name={service.icon} size={96} strokeWidth={1.2}/></div></div></section>
+  <section class="section-pad"><div class="container-page grid gap-10 lg:grid-cols-[.7fr_1.3fr]"><div><p class="eyebrow">El problema</p><h2 class="heading-lg mt-3">Lo que buscamos resolver</h2></div><p class="lead rounded-2xl border-l-4 border-accent bg-surface p-7">{service.problem}</p></div></section>
+  <section class="section-pad bg-surface"><div class="container-page grid gap-6 md:grid-cols-2">{sections.map((section,index) => <article class="card p-7"><p class="text-sm font-extrabold text-brand">0{index+1}</p><h2 class="heading-md mt-3">{section.title}</h2><ul class="mt-5 space-y-3">{section.items.map((item) => <li class="flex gap-3 text-slate-600"><Icon name="check" size={19} class="mt-0.5 shrink-0 text-accent"/><span>{item}</span></li>)}</ul></article>)}</div></section>
+  <section class="section-pad"><div class="container-page grid gap-10 lg:grid-cols-[.7fr_1.3fr]"><div><p class="eyebrow">Preguntas frecuentes</p><h2 class="heading-lg mt-3">Sobre este servicio</h2></div><div class="space-y-3">{service.faqs.map((faq) => <details class="group rounded-xl border border-slate-200 p-5"><summary class="cursor-pointer list-none font-bold text-brand-dark">{faq.question}<span class="float-right text-brand group-open:rotate-45">+</span></summary><p class="muted mt-3">{faq.answer}</p></details>)}</div></div></section>
+  <CTA title={`Conversemos sobre ${service.shortTitle.toLowerCase()}.`} />
+</BaseLayout>

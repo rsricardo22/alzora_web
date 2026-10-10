@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Segoe UI", Arial, sans-serif;
+  --color-brand: #1673d1;
+  --color-brand-dark: #102a43;
+  --color-accent: #16a6a0;
+  --color-surface: #f5f8fc;
+  --color-ink: #18344f;
+  --shadow-soft: 0 16px 45px rgba(16, 42, 67, 0.09);
+}
+
+:root {
+  color-scheme: light;
+  --header-height: 4.75rem;
+}
+
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #fff; color: #18344f; font-family: var(--font-sans); }
+body.menu-open { overflow: hidden; }
+::selection { background: #cce5ff; color: #102a43; }
+:focus-visible { outline: 3px solid #16a6a0; outline-offset: 3px; }
+
+.container-page { width: min(100% - 2rem, 72rem); margin-inline: auto; }
+.section-pad { padding-block: clamp(4rem, 8vw, 7rem); }
+.eyebrow { color: #1673d1; font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.heading-xl { color: #102a43; font-size: clamp(2.5rem, 6vw, 4.8rem); font-weight: 800; letter-spacing: -.055em; line-height: 1.02; }
+.heading-lg { color: #102a43; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -.04em; line-height: 1.1; }
+.heading-md { color: #102a43; font-size: 1.25rem; font-weight: 750; letter-spacing: -.02em; }
+.lead { color: #49657f; font-size: clamp(1.05rem, 2vw, 1.2rem); line-height: 1.75; }
+.muted { color: #5c7389; line-height: 1.7; }
+.card { border: 1px solid #dfeaf4; border-radius: 1.25rem; background: #fff; box-shadow: 0 12px 36px rgba(16,42,67,.055); }
+.btn { display: inline-flex; min-height: 3rem; align-items: center; justify-content: center; gap: .55rem; border-radius: .8rem; padding: .72rem 1.2rem; font-weight: 750; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: #1673d1; color: white; box-shadow: 0 10px 24px rgba(22,115,209,.22); }
+.btn-primary:hover { background: #0f62b5; }
+.btn-secondary { border: 1px solid #bed2e4; background: #fff; color: #102a43; }
+.btn-secondary:hover { border-color: #1673d1; color: #1673d1; }
+.prose-legal h2 { margin-top: 2.4rem; color: #102a43; font-size: 1.35rem; font-weight: 800; }
+.prose-legal p, .prose-legal li { margin-top: .8rem; line-height: 1.8; color: #49657f; }
+.prose-legal ul { padding-left: 1.25rem; list-style: disc; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}

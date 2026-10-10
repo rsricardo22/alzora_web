@@ -1,0 +1,10 @@
+---
+import { Workflow, Headphones, Blocks, Files, BrainCircuit, ArrowRight, Check, Building, Gauge, ShieldCheck, Users, Search, PenTool, Rocket, ChartLine, BellRing, MessagesSquare, DatabaseZap, ChartNoAxesCombined, Bot, Handshake, Target, Eye, HeartHandshake } from '@lucide/astro';
+
+const icons = { workflow: Workflow, headset: Headphones, blocks: Blocks, files: Files, brain: BrainCircuit, arrow: ArrowRight, check: Check, building: Building, gauge: Gauge, shield: ShieldCheck, users: Users, search: Search, design: PenTool, rocket: Rocket, chart: ChartLine, bell: BellRing, messages: MessagesSquare, integration: DatabaseZap, analytics: ChartNoAxesCombined, bot: Bot, handshake: Handshake, target: Target, eye: Eye, values: HeartHandshake };
+type IconName = keyof typeof icons;
+interface Props { name: IconName; size?: number; class?: string; strokeWidth?: number; }
+const { name, size = 24, class: className = '', strokeWidth = 1.8 } = Astro.props;
+const Component = icons[name];
+---
+<Component size={size} class={className} stroke-width={strokeWidth} aria-hidden="true" />

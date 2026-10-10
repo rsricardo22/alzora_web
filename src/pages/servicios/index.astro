@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CTA from '../../components/CTA.astro';
+import { services } from '../../data/services';
+---
+<BaseLayout title="Servicios" description="Servicios de automatización, soporte aplicativo, desarrollo, gestión documental e inteligencia artificial para empresas.">
+  <section class="section-pad bg-surface"><div class="container-page"><p class="eyebrow">Servicios</p><h1 class="heading-xl mt-4 max-w-4xl">Capacidades conectadas con las necesidades de tu operación.</h1><p class="lead mt-6 max-w-3xl">Desde el diagnóstico hasta el seguimiento, combinamos consultoría y ejecución para resolver problemas concretos sin perder de vista la operación completa.</p></div></section>
+  <section class="section-pad"><div class="container-page"><SectionHeading title="Cinco formas de ayudarte a avanzar" description="Cada servicio se adapta al contexto, herramientas y madurez de tu empresa."/><div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">{services.map((service) => <ServiceCard service={service}/>)}</div></div></section>
+  <section class="section-pad bg-brand-dark text-white"><div class="container-page grid gap-8 lg:grid-cols-3"><div class="lg:col-span-1"><p class="eyebrow !text-blue-300">Modalidad flexible</p><h2 class="mt-3 text-3xl font-extrabold">Una forma de trabajo adecuada al reto.</h2></div><div class="grid gap-4 sm:grid-cols-3 lg:col-span-2"><div class="rounded-xl bg-white/8 p-5"><h3 class="font-bold">Proyecto</h3><p class="mt-2 text-sm leading-6 text-slate-300">Alcance, entregables y etapas definidos.</p></div><div class="rounded-xl bg-white/8 p-5"><h3 class="font-bold">Bolsa de horas</h3><p class="mt-2 text-sm leading-6 text-slate-300">Capacidad flexible para prioridades acordadas.</p></div><div class="rounded-xl bg-white/8 p-5"><h3 class="font-bold">Servicio gestionado</h3><p class="mt-2 text-sm leading-6 text-slate-300">Atención continua bajo un modelo operativo.</p></div></div></div></section>
+  <CTA />
+</BaseLayout>

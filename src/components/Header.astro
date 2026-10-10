@@ -1,0 +1,53 @@
+---
+import { Menu, X } from '@lucide/astro';
+import { navItems } from '../config/site';
+const currentPath = Astro.url.pathname;
+const active = (href: string) => href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+<header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur" data-header>
+  <div class="container-page flex h-[var(--header-height)] items-center justify-between gap-5">
+    <a href="/" class="flex items-center gap-3" aria-label="ALZORA, ir al inicio">
+      <img src="/brand/alzora-logo.svg" width="152" height="38" alt="ALZORA" />
+    </a>
+    <nav aria-label="Navegación principal" class="hidden items-center gap-1 lg:flex">
+      {navItems.map((item) => (
+        <a href={item.href} aria-current={active(item.href) ? 'page' : undefined} class:list={['rounded-lg px-3 py-2 text-sm font-semibold transition-colors hover:text-brand', active(item.href) ? 'text-brand' : 'text-slate-600']}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+    <a href="/contacto" class="btn btn-primary hidden lg:inline-flex">Solicitar diagnóstico</a>
+    <button type="button" class="grid size-11 place-items-center rounded-lg border border-slate-200 lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú" data-menu-button>
+      <Menu class="menu-open-icon" aria-hidden="true" />
+      <X class="menu-close-icon hidden" aria-hidden="true" />
+    </button>
+  </div>
+  <div id="mobile-menu" class="hidden border-t border-slate-200 bg-white lg:hidden" data-mobile-menu>
+    <nav aria-label="Navegación móvil" class="container-page flex flex-col py-4">
+      {navItems.map((item) => <a href={item.href} aria-current={active(item.href) ? 'page' : undefined} class:list={['rounded-lg px-3 py-3 font-semibold', active(item.href) ? 'bg-blue-50 text-brand' : 'text-slate-700']}>{item.label}</a>)}
+      <a href="/contacto" class="btn btn-primary mt-3">Solicitar diagnóstico</a>
+    </nav>
+  </div>
+</header>
+<script>
+  const initMenu = () => {
+    const button = document.querySelector<HTMLElement>('[data-menu-button]');
+    const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+    if (!button || !menu || button.dataset.ready) return;
+    button.dataset.ready = 'true';
+    const toggle = (force?: boolean) => {
+      const willOpen = force ?? button.getAttribute('aria-expanded') !== 'true';
+      button.setAttribute('aria-expanded', String(willOpen));
+      button.setAttribute('aria-label', willOpen ? 'Cerrar menú' : 'Abrir menú');
+      menu.classList.toggle('hidden', !willOpen);
+      button.querySelector('.menu-open-icon')?.classList.toggle('hidden', willOpen);
+      button.querySelector('.menu-close-icon')?.classList.toggle('hidden', !willOpen);
+      document.body.classList.toggle('menu-open', willOpen);
+    };
+    button.addEventListener('click', () => toggle());
+    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => toggle(false)));
+    window.addEventListener('resize', () => { if (window.innerWidth >= 1024) toggle(false); });
+  };
+  document.addEventListener('astro:page-load', initMenu);
+  initMenu();
+</script>

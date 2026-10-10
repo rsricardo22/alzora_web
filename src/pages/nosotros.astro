@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import CTA from '../components/CTA.astro';
+const values = [
+  ['handshake','Cercanía','Escuchamos el contexto y construimos junto al equipo del cliente.'],
+  ['target','Pragmatismo','Priorizamos soluciones útiles, viables y alineadas al objetivo del negocio.'],
+  ['shield','Responsabilidad','Comunicamos alcances, riesgos y decisiones con transparencia.'],
+  ['chart','Mejora continua','Medimos, aprendemos y ajustamos para sostener la evolución del proceso.'],
+] as const;
+---
+<BaseLayout title="Nosotros" description="Conoce el enfoque de ALZORA para la mejora continua, eficiencia operativa y transformación tecnológica de empresas en Perú.">
+  <section class="section-pad bg-surface"><div class="container-page grid gap-12 lg:grid-cols-2 lg:items-center"><div><p class="eyebrow">Nosotros</p><h1 class="heading-xl mt-4">Tecnología con sentido operativo.</h1><p class="lead mt-6">ALZORA es una empresa peruana enfocada en ayudar a otras empresas a simplificar procesos, mejorar su operación y adoptar tecnología de manera responsable.</p></div><div class="rounded-3xl bg-brand-dark p-8 text-white shadow-soft sm:p-10"><p class="text-sm font-bold uppercase tracking-widest text-blue-300">Nuestro propósito</p><p class="mt-5 text-2xl font-bold leading-relaxed">Convertir retos operativos en mejoras claras, conectando procesos, personas y tecnología.</p></div></div></section>
+  <section class="section-pad"><div class="container-page grid gap-6 md:grid-cols-2"><article class="card p-8"><Icon name="target" class="text-brand" size={30}/><h2 class="heading-md mt-5">Misión</h2><p class="muted mt-3">Diseñar e implementar soluciones que simplifiquen la operación de nuestros clientes y les permitan trabajar con mayor agilidad, visibilidad y control.</p></article><article class="card p-8"><Icon name="eye" class="text-accent" size={30}/><h2 class="heading-md mt-5">Visión</h2><p class="muted mt-3">Ser un aliado confiable para empresas que buscan transformar sus procesos con criterio, cercanía y tecnología aplicada a resultados reales.</p></article></div></section>
+  <section class="section-pad bg-surface"><div class="container-page"><SectionHeading eyebrow="Principios" title="Valores que orientan nuestro trabajo" /><div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{values.map(([icon,title,text]) => <article class="card p-6"><Icon name={icon} class="text-brand"/><h3 class="heading-md mt-5">{title}</h3><p class="muted mt-3 text-sm">{text}</p></article>)}</div></div></section>
+  <section class="section-pad"><div class="container-page grid gap-12 lg:grid-cols-2"><div><SectionHeading eyebrow="Enfoque consultivo" title="Primero entendemos. Luego proponemos." description="No partimos de una herramienta predeterminada. Analizamos el problema, las restricciones, los usuarios y la información disponible antes de definir una solución." /></div><div class="space-y-4">{['Escucha del equipo y entendimiento del contexto','Análisis del proceso actual y sus causas','Diseño colaborativo del proceso futuro','Implementación gradual y transferencia de conocimiento'].map((item,i) => <div class="flex gap-4 rounded-xl border border-slate-200 p-5"><span class="grid size-9 shrink-0 place-items-center rounded-lg bg-blue-50 font-bold text-brand">{i+1}</span><p class="font-semibold text-brand-dark">{item}</p></div>)}</div></div></section>
+  <CTA title="Construyamos una mejora que tenga sentido para tu empresa." />
+</BaseLayout>

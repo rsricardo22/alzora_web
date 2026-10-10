@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { services } from '../data/services';
+import { site, whatsappUrl } from '../config/site';
+const formEnabled = Boolean(site.turnstileSiteKey);
+---
+<BaseLayout title="Contacto" description="Solicita un diagnóstico para conversar sobre los procesos, tecnología o necesidades operativas de tu empresa.">
+  {formEnabled && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+  <section class="section-pad bg-surface"><div class="container-page"><p class="eyebrow">Contacto</p><h1 class="heading-xl mt-4 max-w-4xl">Conversemos sobre el proceso que quieres mejorar.</h1><p class="lead mt-6 max-w-3xl">Cuéntanos brevemente el reto. Revisaremos la información para coordinar una conversación de diagnóstico.</p></div></section>
+  <section class="section-pad"><div class="container-page grid gap-12 lg:grid-cols-[.65fr_1.35fr]">
+    <aside><h2 class="heading-md">Canales de contacto</h2><div class="mt-6 space-y-4"><a href={`mailto:${site.email}`} class="flex gap-4 rounded-xl border border-slate-200 p-5 hover:border-brand"><span class="grid size-10 place-items-center rounded-lg bg-blue-50 text-brand">@</span><span><strong class="block text-brand-dark">Correo</strong><span class="mt-1 block text-sm text-slate-600">{site.email}</span></span></a>{whatsappUrl ? <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" class="flex gap-4 rounded-xl border border-slate-200 p-5 hover:border-accent"><span class="grid size-10 place-items-center rounded-lg bg-teal-50 text-accent"><Icon name="messages"/></span><span><strong class="block text-brand-dark">WhatsApp</strong><span class="mt-1 block text-sm text-slate-600">Abrir conversación</span></span></a> : <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900"><strong>WhatsApp pendiente:</strong> configura <code>PUBLIC_WHATSAPP_NUMBER</code> antes de publicar.</div>}</div><p class="muted mt-6 text-sm">Atendemos consultas de empresas en Perú. El envío del formulario no crea una relación contractual.</p></aside>
+    <div class="card p-6 sm:p-8"><h2 class="text-2xl font-extrabold text-brand-dark">Solicitar diagnóstico</h2><p class="muted mt-2 text-sm">Los campos marcados con * son obligatorios.</p>
+      {!formEnabled && <div class="mt-6 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950" role="status"><strong>Formulario aún no habilitado.</strong> Falta configurar Turnstile y las credenciales de envío. Puedes escribirnos al correo indicado.</div>}
+      <form class="mt-7 grid gap-5 sm:grid-cols-2" data-contact-form data-enabled={String(formEnabled)} novalidate>
+        <div><label for="name" class="text-sm font-bold text-brand-dark">Nombre y apellido *</label><input id="name" name="name" required minlength="2" maxlength="100" autocomplete="name" class="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-brand" /></div>
+        <div><label for="company" class="text-sm font-bold text-brand-dark">Empresa *</label><input id="company" name="company" required minlength="2" maxlength="120" autocomplete="organization" class="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-brand" /></div>
+        <div><label for="email" class="text-sm font-bold text-brand-dark">Correo corporativo *</label><input id="email" name="email" required type="email" maxlength="160" autocomplete="email" class="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-brand" /></div>
+        <div><label for="phone" class="text-sm font-bold text-brand-dark">Teléfono *</label><input id="phone" name="phone" required type="tel" minlength="7" maxlength="30" autocomplete="tel" inputmode="tel" class="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-brand" /></div>
+        <div class="sm:col-span-2"><label for="service" class="text-sm font-bold text-brand-dark">Servicio de interés *</label><select id="service" name="service" required class="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:border-brand"><option value="">Selecciona una opción</option>{services.map((service) => <option value={service.shortTitle}>{service.title}</option>)}<option value="Otro / por definir">Otro / por definir</option></select></div>
+        <div class="sm:col-span-2"><label for="message" class="text-sm font-bold text-brand-dark">¿Qué proceso o necesidad quieres abordar? *</label><textarea id="message" name="message" required minlength="20" maxlength="2000" rows="6" class="mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-brand"></textarea></div>
+        <div class="hidden" aria-hidden="true"><label for="website">Sitio web</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
+        <label class="flex items-start gap-3 text-sm leading-6 text-slate-600 sm:col-span-2"><input type="checkbox" name="consent" value="accepted" required class="mt-1 size-4 shrink-0 accent-brand"/><span>Autorizo el tratamiento de mis datos para atender esta solicitud, conforme a la <a href="/privacidad" class="font-bold text-brand underline">Política de privacidad</a>. *</span></label>
+        {formEnabled && <div class="cf-turnstile sm:col-span-2" data-sitekey={site.turnstileSiteKey} data-theme="light"></div>}
+        <div class="sm:col-span-2"><button type="submit" class="btn btn-primary w-full sm:w-auto" disabled={!formEnabled}><span data-button-text>Enviar solicitud</span><Icon name="arrow" size={18}/></button><p class="mt-4 min-h-6 text-sm font-semibold" role="status" aria-live="polite" data-form-status></p></div>
+      </form>
+    </div>
+  </div></section>
+  <script>
+    declare global { interface Window { turnstile?: { reset: () => void } } }
+    const initContactForm = () => {
+      const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+      if (!form || form.dataset.ready) return;
+      form.dataset.ready = 'true';
+      const status = form.querySelector<HTMLElement>('[data-form-status]');
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const buttonText = form.querySelector<HTMLElement>('[data-button-text]');
+      if (form.dataset.enabled !== 'true' || !status || !button || !buttonText) return;
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        status.textContent = '';
+        status.className = 'mt-4 min-h-6 text-sm font-semibold';
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        const payload = Object.fromEntries(new FormData(form).entries());
+        if (!payload['cf-turnstile-response']) { status.textContent = 'Completa la verificación de seguridad.'; status.classList.add('text-red-700'); return; }
+        button.disabled = true; buttonText.textContent = 'Enviando…';
+        try {
+          const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok) throw new Error(result.message || 'No pudimos enviar la solicitud.');
+          form.reset(); window.turnstile?.reset();
+          status.textContent = 'Solicitud enviada correctamente. Te responderemos por los datos proporcionados.'; status.classList.add('text-green-700');
+        } catch (error) { status.textContent = error instanceof Error ? error.message : 'Ocurrió un error. Inténtalo nuevamente.'; status.classList.add('text-red-700'); window.turnstile?.reset(); }
+        finally { button.disabled = false; buttonText.textContent = 'Enviar solicitud'; }
+      });
+    };
+    document.addEventListener('astro:page-load', initContactForm); initContactForm();
+  </script>
+</BaseLayout>

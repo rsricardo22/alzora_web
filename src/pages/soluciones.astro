@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import CTA from '../components/CTA.astro';
+const solutions = [
+  ['users','Gestión comercial y CRM','Organización de prospectos, oportunidades, actividades, responsables y seguimiento comercial.'],
+  ['headset','Operaciones de centros de contacto','Flujos de atención, clasificación, derivación y visibilidad de interacciones operativas.'],
+  ['files','Seguimiento documental','Registro, estados, responsables, vencimientos y trazabilidad de documentos.'],
+  ['bell','Alertas y notificaciones','Avisos oportunos ante eventos, pendientes, excepciones o fechas relevantes.'],
+  ['integration','Integración entre sistemas','Intercambio controlado de información para reducir duplicidad y tareas manuales.'],
+  ['messages','Automatización de comunicaciones','Mensajes transaccionales y plantillas vinculadas a eventos del proceso.'],
+  ['analytics','Analítica de operaciones','Tableros y datos consolidados para observar carga, estado y comportamiento del proceso.'],
+  ['bot','Agentes de IA empresariales','Asistentes acotados para consulta, clasificación o apoyo operativo con controles definidos.'],
+] as const;
+---
+<BaseLayout title="Soluciones" description="Ejemplos de soluciones de automatización, integración, analítica e IA aplicables a procesos empresariales.">
+  <section class="section-pad bg-surface"><div class="container-page"><p class="eyebrow">Soluciones</p><h1 class="heading-xl mt-4 max-w-4xl">Tecnología aplicada a escenarios concretos de negocio.</h1><p class="lead mt-6 max-w-3xl">Estas categorías muestran posibilidades de solución. Cada implementación se define después de analizar el proceso, los sistemas y las restricciones del cliente.</p><div class="mt-7 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm font-semibold text-brand-dark">Contenido ilustrativo: no representa productos terminados ni soluciones listas para contratar sin diagnóstico.</div></div></section>
+  <section class="section-pad"><div class="container-page"><SectionHeading eyebrow="Ámbitos de aplicación" title="De la información dispersa a una operación conectada"/><div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{solutions.map(([icon,title,text]) => <article class="card p-6"><div class="grid size-12 place-items-center rounded-xl bg-blue-50 text-brand"><Icon name={icon}/></div><h2 class="heading-md mt-5">{title}</h2><p class="muted mt-3 text-sm">{text}</p></article>)}</div></div></section>
+  <section class="section-pad bg-brand-dark text-white"><div class="container-page grid gap-10 lg:grid-cols-2 lg:items-center"><div><p class="eyebrow !text-blue-300">Criterio antes que tecnología</p><h2 class="mt-4 text-4xl font-extrabold tracking-tight">La solución correcta empieza por una buena definición del problema.</h2></div><div class="space-y-4">{['Objetivo y usuarios claramente identificados','Datos, integraciones y restricciones conocidos','Seguridad y privacidad consideradas desde el diseño','Adopción, soporte y evolución contemplados'].map((item) => <p class="flex gap-3 rounded-xl bg-white/5 p-4"><Icon name="check" class="shrink-0 text-accent" size={20}/><span>{item}</span></p>)}</div></div></section>
+  <CTA />
+</BaseLayout>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import CTA from '../components/CTA.astro';
+const stages = [
+  { title:'Diagnóstico', text:'Conversamos sobre el reto, el impacto esperado, los actores y las restricciones principales.', output:'Entendimiento inicial del reto' },
+  { title:'Levantamiento de información', text:'Recopilamos datos, documentos, reglas y perspectivas de quienes participan en el proceso.', output:'Información y alcance preliminar' },
+  { title:'Análisis AS-IS', text:'Representamos cómo funciona hoy el proceso e identificamos fricciones, dependencias y riesgos.', output:'Mapa del estado actual' },
+  { title:'Diseño TO-BE', text:'Definimos una forma futura de trabajo más simple, con roles, reglas y tecnología necesaria.', output:'Diseño del proceso futuro' },
+  { title:'Propuesta', text:'Acordamos alcance, entregables, modalidad, supuestos y plan de trabajo.', output:'Propuesta clara y trazable' },
+  { title:'Implementación', text:'Construimos, configuramos, integramos y validamos la solución con participación de los usuarios.', output:'Solución validada y documentada' },
+  { title:'Seguimiento y mejora', text:'Observamos el funcionamiento, atendemos ajustes y priorizamos nuevas oportunidades.', output:'Evolución continua' },
+];
+---
+<BaseLayout title="Cómo trabajamos" description="Metodología de ALZORA: diagnóstico, análisis AS-IS, diseño TO-BE, propuesta, implementación y mejora continua.">
+  <section class="section-pad bg-surface"><div class="container-page"><p class="eyebrow">Cómo trabajamos</p><h1 class="heading-xl mt-4 max-w-4xl">Un proceso transparente para convertir necesidades en mejoras.</h1><p class="lead mt-6 max-w-3xl">Cada etapa reduce incertidumbre y mantiene alineados al negocio, los usuarios y la solución tecnológica.</p></div></section>
+  <section class="section-pad"><div class="container-page"><ol class="relative space-y-6 before:absolute before:bottom-10 before:left-[1.45rem] before:top-10 before:w-px before:bg-blue-200 md:before:left-1/2">{stages.map((stage,i) => <li class:list={['relative grid gap-5 md:grid-cols-2 md:gap-16', i % 2 === 1 && 'md:[&_.stage-card]:col-start-2']}><span class="absolute left-0 top-7 z-10 grid size-12 place-items-center rounded-full border-4 border-white bg-brand font-extrabold text-white shadow md:left-1/2 md:-translate-x-1/2">{i+1}</span><article class:list={['stage-card card ml-16 p-6 md:ml-0', i % 2 === 0 ? 'md:mr-8' : 'md:ml-8']}><p class="text-xs font-bold uppercase tracking-widest text-brand">Etapa {i+1}</p><h2 class="heading-md mt-2">{stage.title}</h2><p class="muted mt-3">{stage.text}</p><p class="mt-5 flex items-center gap-2 text-sm font-bold text-accent"><Icon name="check" size={17}/>{stage.output}</p></article></li>)}</ol></div></section>
+  <section class="section-pad bg-surface"><div class="container-page grid gap-6 md:grid-cols-3"><article class="card p-7"><Icon name="users" class="text-brand"/><h2 class="heading-md mt-5">Colaborativo</h2><p class="muted mt-3">Involucramos a quienes conocen y usan el proceso.</p></article><article class="card p-7"><Icon name="eye" class="text-brand"/><h2 class="heading-md mt-5">Visible</h2><p class="muted mt-3">Hacemos explícitos avances, decisiones, supuestos y riesgos.</p></article><article class="card p-7"><Icon name="chart" class="text-brand"/><h2 class="heading-md mt-5">Evolutivo</h2><p class="muted mt-3">Priorizamos, validamos y mejoramos de manera progresiva.</p></article></div></section>
+  <CTA title="Empecemos por entender tu proceso." />
+</BaseLayout>
